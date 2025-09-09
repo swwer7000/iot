@@ -1,19 +1,19 @@
-漏洞概述
+Vulnerability Overview
 
-Wavlink是一家专注于网络设备和通信解决方案的公司，提供优质的路由器、扩展器和网络配件。其下的WAVLINK-NU516U1型号的固件，功能用于提供打印机服务器网卡，其登录界面存在命令注入漏洞，允许攻击者完成授权命令执行。
+Wavlink is a company dedicated to network devices and communication solutions, offering high-quality routers, extenders, and network accessories. The firmware of its WAVLINK-NU516U1 model, which functions as a printer server network card, has a command injection vulnerability in its login interface, allowing attackers to execute authorized commands.
 
-漏洞细节
+Details of the vulnerability
 
-对固件解包之后，找到login.cgi程序，使用ida打开在main函数下，在main（ida中显示为ftext）函数中，比对是否是正常登录请求，正常登录请求由函数sub_4012A0进行处理
+After unpacking the firmware, locate the login.cgi program. Open it in IDA under the main function. In the main (displayed as ftext in IDA) function, compare whether it is a normal login request. Normal login requests are handled by the function sub_4012A0.
 
 
 <img width="994" height="651" alt="image" src="https://github.com/user-attachments/assets/40c49ea5-14a4-4f5d-8763-bf295a10baee" />
 
-在函数sub_4012A0中获取ipaddr的参数值赋值给v9
+In the function sub_4012A0, the parameter value of ipaddr is retrieved and assigned to v9.
 
 <img width="942" height="408" alt="image" src="https://github.com/user-attachments/assets/9b619bf6-afe7-4396-ae75-3c32a6868467" />
 
-在登录验证成功之后获取v9的参数值进行拼接到system执行的参数v31中
+After the login verification is successful, obtain the parameter value of v9 and concatenate it to the parameter v31 used for system execution.
 
 <img width="1341" height="342" alt="image" src="https://github.com/user-attachments/assets/334a86e9-70a3-4bcd-bdca-14808e9d7c82" />
 
